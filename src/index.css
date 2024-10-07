@@ -10,21 +10,10 @@
 }
 
 @font-face {
-    font-family: 'Latto';
-    src: url('/src/assets/fonts/Latto-Regular.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'Inter';
     src: url('/src/assets/fonts/Inter.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
-}
-
-.rocgrotesk {
-    font-family: 'Roc Grotesk', sans-serif;
 }
 
 .inter {
@@ -32,41 +21,4 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 20px;
-}
-
-.border-with-shadow {
-    @apply py-2;
-    @apply px-3;
-    @apply rounded-lg;
-    @apply border;
-    @apply border-fablelightgrey;
-    @apply shadow-md;
-}
-
-.comments {
-    position: relative;
-    &:after {
-        content: "";
-        margin-top: calc(30px);
-        margin-left: calc(1rem + 11px);
-        width: 1px;
-        height: calc(100%);
-        position: absolute;
-        left: 0;
-        z-index: 999;
-        @apply bg-fablelightgrey;
-        z-index: -1;
-    }
-}
-
-.btn {
-    @apply flex items-center justify-center p-2 rounded-md transition-all duration-200 ease-in-out;
-  }
-  
-.btn-white {
-@apply bg-white text-white hover:bg-fablelightgrey hover:shadow-md;
-}
-
-.btn-purple {
-@apply bg-fablepurple text-white hover:bg-purple-700 hover:shadow-md;
 }
