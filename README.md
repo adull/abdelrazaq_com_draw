@@ -26,6 +26,8 @@ The `CreateComment` is pretty straightforward too. It is kind of functional, you
 
 The `helpers` and `models` components are used throughout - they illustrate how I like to keep data consistent and the type of infrastructure + mechanisms that I like in my project that makes it easy for me to get my work done and write clean code.
 
+The thing that I'm most excited about that I included in this project is that on desktop when you hover over the dates for ex. `128 days ago`, there's a `title` attribute that says exactly when the comment was added. I really enjoy implementing simple, accessible, data that communicates exact information using basic web technology. It feels satisfying aesthetically, and I love developing simple functionality that's just a little bit different and makes a power user of an app that I am developing feel like there are *people* making the tools that they are using. 
+
 # What I would do if I had more time
 
 * I don't like prop drilling, maybe adding some sort of state management would be better. 
