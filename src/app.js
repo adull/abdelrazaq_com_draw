@@ -42,8 +42,7 @@ export function App() {
           try {
               const response = await axios.get(getCommentsRoute);
               const processedData = processCommentData(response.data);
-              console.log({ processedData})
-              setComments(processedData)
+              setComments(processedData);
               setLoading(false);
           } catch (err) {
               setError(err.message);

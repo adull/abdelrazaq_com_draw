@@ -31,3 +31,4 @@ The `helpers` and `models` components are used throughout - they illustrate how 
 * Adding a database so that new comments stay
 * Websockets
 * Add a "draw a picture" button next to the paperclip that lets you draw a picture
+* Add prettier for better consistency I went kinda crazy with different quotes " ' ` and probably missed semicolons.

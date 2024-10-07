@@ -63,10 +63,10 @@
     @apply flex items-center justify-center p-2 rounded-md transition-all duration-200 ease-in-out;
   }
   
-  .btn-white {
-    @apply bg-white text-white hover:bg-fablelightgrey hover:shadow-md;
-  }
-  
-  .btn-purple {
-    @apply bg-fablepurple text-white hover:bg-purple-700 hover:shadow-md;
-  }
+.btn-white {
+@apply bg-white text-white hover:bg-fablelightgrey hover:shadow-md;
+}
+
+.btn-purple {
+@apply bg-fablepurple text-white hover:bg-purple-700 hover:shadow-md;
+}
