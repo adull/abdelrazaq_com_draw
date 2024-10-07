@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import { timeAgo } from '../helpers';
 import Avatar from './Avatar';
 

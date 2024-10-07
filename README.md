@@ -2,6 +2,8 @@
 
 This is my (Adlai Abdelrazaq) submission for fable security's fullstack role.
 
+`npm install` > `npm run dev`
+
 # Description of the code
 
 The project is a preact app I bootstrapped with [create_tw](https://github.com/AndrejJurkin/create-tw). I chose (p)React because you guys use it, I'm comfortable with it, and to demonstrate that I make conscious decisions about application size while building. I chose Tailwind because it has wide adoption, makes styles easy to maintain, and it results in a lot less CSS for the developer.

@@ -1,3 +1,5 @@
+import { h } from 'preact';
+
 const Avatar = ({ user }) => {
     if (user?.hideAvatar) return <div class="w-6 h-6 mr-2 transparent" />;
 
