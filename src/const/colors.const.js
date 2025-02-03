@@ -1,6 +1,6 @@
 export const colors = {
     NAVY: 'navy',
-    BLUE: 'bue',
+    BLUE: 'blue',
     WHITE: 'white',
     TEAL: 'teal',
     OLIVE: 'olive',
@@ -10,7 +10,7 @@ export const colors = {
     ORANGE: 'orange',
     RED: 'red',
     MAROON: 'maroon',
-    FUSCHIA: 'fuschia',
+    FUCHSIA: 'fuchsia',
     PURPLE: 'purple',
     BLACK: 'black',
     GREY: 'grey',

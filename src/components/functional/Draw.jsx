@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { colors } from '../../const/colors.const'
+import { modes } from '../../const/modes.const';
 import MainCanvas from './MainCanvas'
 import CustomBrushes from './CustomBrushes'
 import Controls from './Controls'
@@ -11,19 +12,26 @@ import Text from './Text'
 import Piano from './Piano'
 
 const Draw = () => {
-    const [color, setColor] = useState(colors.BLACK)
-    const [thickness, setThickness] = useState(1)
+    const [state, setState] = useState({
+        color: colors.BLACK,
+        mode: modes.BRUSH,
+        thickness: 1,
+        layers: []
+    });
 
-    // const setColor = (color) => {
-    //     console.log({ color })
-    // }
+    const updateState = (key, val) => {
+        setState((prevState) => ({ ...prevState, [key]: val }))
+    }
+
     return (
         <div class="container mx-auto">
             <div class="flex flex-wrap w-3/5">
                 <div class="flex flex-wrap flex-col">
-                    <MainCanvas color={color} thickness={thickness} />
+                    <MainCanvas state={state} updateState={updateState} />
                     <div class="flex flex-wrap">
-                        <Controls colors={ colors } setColor={(color) => setColor(color)} />
+                        <Controls state={state}
+                                  updateState={updateState} 
+                        />
                     </div>
                 </div>
                 <div class="flex flex-wrap">

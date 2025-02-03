@@ -1,62 +1,93 @@
 import { h } from 'preact';
 import { useState, useEffect, useRef } from 'preact/hooks';
+import { modes } from '../const/modes.const';
 
 import { paper } from 'paper'
-import { Group } from 'paper/dist/paper-core';
+import { findLayerFromMode, createLayerFromMode } from '../helpers/layer';
+import { brushDraw, rectangleDraw, initBrush, initRectangle } from '../helpers/draw';
 
 const Canvas = ({ w = 0, 
                   h = 0, 
                   offsetX = 0,
                   offsetY = 0, 
                   setImage, 
-                  m,
+                  mode,
                   brushThickness,
                   color }) => {    
 
-    const [mode, setMode] = useState(m);
-    const groupRef = useRef(null);
+    const [layers, setLayers] = useState([]);
+    const modeRef = useRef(mode);
+    const layerRef = useRef(null);
     const canvasRef = useRef(null);
     const colorRef = useRef(color);
     const thicknessRef = useRef(brushThickness);
 
     useEffect(() => {
         colorRef.current = color;
+        modeRef.current = mode
         thicknessRef.current = brushThickness; 
-    });
+    }, [color, mode, brushThickness]);
 
     useEffect(() => {
-        console.log({ color })
         if (!canvasRef.current) return;
 
         paper.setup(canvasRef.current);
-
-        groupRef.current = new paper.Group();
-        
         const view = paper.view
         
-
         view.onMouseDown = ((event) => {
-            console.log(color)
-            const group = groupRef.current
-            if(!group) return;
-            console.log({ brushThickness})
-
-            const path = new paper.Path({ 
+            const mode = modeRef.current;
+            const layer = new paper.Group({ name: `${mode.name}__${layers.length}` });
+            const point = event.point;
+            
+            const style = {
                 strokeColor: colorRef.current,
                 strokeWidth: thicknessRef.current
-            });
+            }
 
-            group.addChild(path)
+            switch(mode.name) {    
+                case modes.BRUSH.name:
+                    initBrush({ layer, style });
+                    break;
+                case modes.RECTANGLE.name:
+                    
+                    initRectangle({ layer, point, style })
+                    break;
+                default:
+                    console.log(`mousedown -- invalid mode name`)
+
+
+            }
+            layers.push(layer)
+
+            
             
         })
 
         view.onMouseDrag = ((event) => {
-            console.log(color)
-            const group = groupRef.current;
-            const children = group.children;
-            if(!group || children.length === 0 ) return;
-            const path = children[children.length - 1];
-            path.add(event.point);
+            const mode = modeRef.current;
+
+            const point = event.point;
+            const layer = layers[layers.length - 1];
+            const path = layer.children[0];
+
+            switch(mode.name) {
+                case modes.BRUSH.name:
+                    brushDraw({ path, point })
+                    break;
+                case modes.RECTANGLE.name:
+                    const style = {
+                        strokeColor: colorRef.current,
+                        strokeWidth: thicknessRef.current
+                    }
+                    rectangleDraw({ layer, path, style, point})
+                    break;
+                default: 
+                    console.log(`drag -- no valid mode`)
+                    
+            }
+            
+            // const path = children[children.length - 1];
+            // path.add(event.point);
         })
 
         return () => {

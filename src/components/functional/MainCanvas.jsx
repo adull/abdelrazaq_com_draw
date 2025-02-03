@@ -1,11 +1,10 @@
 import { h } from 'preact';
 import { useEffect } from 'preact/hooks'
 import Canvas from '../Canvas';
-import { mode } from '../../const/mode.const';
 
-const MainCanvas = ({ color, brushThickness}) => {
+const MainCanvas = ({ state, updateState }) => {
     useEffect(() => {
-        console.log({ b: mode.BRUSH })
+        console.log(state)
     }, [])
     const setImage = () => {
         
@@ -16,9 +15,10 @@ const MainCanvas = ({ color, brushThickness}) => {
        <Canvas w={ 700 } 
                h={354} 
                setImage={setImage} 
-               m={ mode.BRUSH }
+               mode={ state.mode }
                brushThickness={ 1 } 
-               color={ color }
+               color={ state.color }
+               layers={ state.layers }
         />
     </div>
     )
