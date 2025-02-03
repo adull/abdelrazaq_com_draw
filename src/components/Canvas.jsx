@@ -13,7 +13,8 @@ const Canvas = ({ w = 0,
                   setImage, 
                   mode,
                   brushThickness,
-                  color }) => {    
+                  color,
+                  updateState }) => {    
 
     const [layers, setLayers] = useState([]);
     const modeRef = useRef(mode);
@@ -58,9 +59,6 @@ const Canvas = ({ w = 0,
 
             }
             layers.push(layer)
-
-            
-            
         })
 
         view.onMouseDrag = ((event) => {
@@ -79,15 +77,18 @@ const Canvas = ({ w = 0,
                         strokeColor: colorRef.current,
                         strokeWidth: thicknessRef.current
                     }
-                    rectangleDraw({ layer, path, style, point})
+                    rectangleDraw({ layer, path, style, point })
                     break;
                 default: 
                     console.log(`drag -- no valid mode`)
                     
             }
-            
-            // const path = children[children.length - 1];
-            // path.add(event.point);
+        });
+
+        view.onMouseUp = ((event) => {
+            // console.log(`up`)
+            console.log(layers)
+            updateState(`layers`, layers)
         })
 
         return () => {

@@ -19,6 +19,7 @@ const MainCanvas = ({ state, updateState }) => {
                brushThickness={ 1 } 
                color={ state.color }
                layers={ state.layers }
+               updateState={updateState}
         />
     </div>
     )

@@ -3,11 +3,6 @@ module.exports = {
   theme: {
     extend: {
       colors: { 
-        fableblack: '#1c1c1c',
-        fableblue: '#504EE9',
-        fablegrey: '#999999',
-        fablelightgrey: '#E8E8E8',
-        fablepurple: '#834ADA'
       },
       fontSize: {
         sm: '0.8rem',

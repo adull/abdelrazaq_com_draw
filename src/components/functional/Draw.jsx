@@ -16,21 +16,69 @@ const Draw = () => {
         color: colors.BLACK,
         mode: modes.BRUSH,
         thickness: 1,
-        layers: []
+        layers: [],
+        lastDims: { width: 0, height: 0 },
+        lastRot: 0
     });
+
+    const [lastDims, setLastDims] = useState({
+        width: 0,
+        height: 0
+    })
 
     const updateState = (key, val) => {
         setState((prevState) => ({ ...prevState, [key]: val }))
+    }
+
+    const updateStateAndSetLastDims = async (key, val) => {
+        updateState(key, val)
+        const last = val[val.length - 1];
+        const bounds = last.bounds;
+        // setLastDims({ width: bounds.width, height: bounds.height})
+        updateState(`lastDims`, { width: bounds.width, height: bounds.height });
+    }
+
+    const scaleLast = (e) => {
+        e.preventDefault();
+        const val = e.target.value;
+        const layers = state.layers;
+
+        const lastLayer = layers[layers.length - 1];
+        if(!lastLayer) return;
+
+        const scaleAmt = val * 0.02 + 0.01
+
+        lastLayer.bounds.width = state.lastDims.width * scaleAmt;
+        lastLayer.bounds.height = state.lastDims.height * scaleAmt;
+    }
+
+    const rotLast = (e) => {
+        const val = parseInt(e.target.value);
+        const layers = state.layers;
+
+        const lastLayer = layers[layers.length - 1];
+        if(!lastLayer) return;
+
+        const diff = val -  state.lastRot;
+        lastLayer.rotation = diff;
+        updateState('lastRot', val)
+    }
+
+    const skewLast = (val) => {
+        // console.log(val)
     }
 
     return (
         <div class="container mx-auto">
             <div class="flex flex-wrap w-3/5">
                 <div class="flex flex-wrap flex-col">
-                    <MainCanvas state={state} updateState={updateState} />
+                    <MainCanvas state={state} updateState={updateStateAndSetLastDims} />
                     <div class="flex flex-wrap">
                         <Controls state={state}
                                   updateState={updateState} 
+                                  scaleLast={scaleLast}
+                                  rotLast={rotLast}
+                                  skewLast={skewLast}
                         />
                     </div>
                 </div>
