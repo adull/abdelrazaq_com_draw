@@ -1,0 +1,9 @@
+export const mode = {
+    BRUSH: 'BRUSH',
+    CUSTOM_BRUSH: 'CUSTOM_BRUSH',
+    RECTANGLE: 'RECTANGLE',
+    TRIANGLE: 'TRIANGLE',
+    CIRCLE: 'CIRCLE',
+    IMAGE: 'IMAGE',
+    TEXT: 'TEXT'
+}

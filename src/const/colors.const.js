@@ -1,0 +1,18 @@
+export const colors = {
+    NAVY: 'navy',
+    BLUE: 'bue',
+    WHITE: 'white',
+    TEAL: 'teal',
+    OLIVE: 'olive',
+    GREEN: 'green',
+    LIME: 'lime',
+    YELLOW: 'yellow',
+    ORANGE: 'orange',
+    RED: 'red',
+    MAROON: 'maroon',
+    FUSCHIA: 'fuschia',
+    PURPLE: 'purple',
+    BLACK: 'black',
+    GREY: 'grey',
+    SILVER: 'silver',
+}
