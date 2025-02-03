@@ -11,3 +11,7 @@ This is my Paper Preact starter. It has some extra code from something I'm makin
 `src/components/Canvas.jsx`
 
 you will see how to use basic paper functions and initialize a paper project. Built off the above.
+
+# Abdelrazaq.com draw
+
+Forked off of both of these, this repo will be a rebuild of this cool app that I made that i want to remake in order to get back into coding.
