@@ -21,6 +21,10 @@ export const initRectangle = ({ layer, style, point }) => {
     layer.addChild(rectPath)
 }
 
+export const initCustomBrush = ({ layer, raster }) => {
+    console.log({ raster })
+}
+
 export const rectangleDraw = ({ layer, path, style, point}) => {
     if(!path) return;
 

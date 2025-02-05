@@ -16,10 +16,11 @@ const MainCanvas = ({ state, updateState }) => {
                h={354} 
                setImage={setImage} 
                mode={ state.mode }
-               brushThickness={ 1 } 
+               brushThickness={ state.thickness } 
                color={ state.color }
                layers={ state.layers }
                updateState={updateState}
+               isCustomBrush={false}
         />
     </div>
     )

@@ -48,6 +48,24 @@ const Controls = ({ state, updateState, scaleLast, rotLast, skewLast }) => {
                 <div class="colors flex flex-wrap" style={{width: 260}}>
                     {colorItems}
                 </div>
+                <div class="toggle-trace flex flex-col border-b-2 border-black">
+                    <div>
+                        <label for="toggletrace">TOGGLE TRACE</label>
+                        <input id="toggletrace" 
+                               type="checkbox" 
+                               value={state.trace} 
+                               onInput={(e) => updateState(`trace`, e.target.value)}></input>
+                    </div>
+                    <div class="flex">
+                        <div>LINE THICKNESS</div>
+                        <input type="range" 
+                               min="1" 
+                               max="40"
+                               value={state.thickness}
+                               onInput={(e) => updateState(`thickness`, e.target.value)}  />
+                    </div>
+                    
+                </div>
                 <div class="modes flex flex-col">
                     {modeItems}
                 </div>
@@ -57,7 +75,7 @@ const Controls = ({ state, updateState, scaleLast, rotLast, skewLast }) => {
                     <div>SCALE LAST IN MAIN CANVAS^^^</div>
                     <input type="range" value={50} onInput={scaleLast} />
                     <div>ROTATE</div>
-                    <input type="range" value={50} onInput={rot} />
+                    <input type="range" min={-180} max={180} value={rotate} onInput={rot} />
                     <div>SKEW</div>
                     <input type="range" id="groupSkew" min={-100} max={100} onInput={sku} onChange={() => setSkew(0)} />
                 </div>
