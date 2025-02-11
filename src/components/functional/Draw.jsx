@@ -87,6 +87,7 @@ const Draw = () => {
     }
 
     const setCustomBrush = (image) => {
+        console.log(`id this set the custom brush?`)
         updateState(`customBrushRaster`, image)
     }
 

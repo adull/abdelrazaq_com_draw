@@ -1,20 +1,23 @@
 import { paper } from 'paper'
 
-export const initBrush = ({ layer, style }) => {
+export const initBrush = ({ scope, layer, style }) => {
+    // console.log({ scope })
+    // scope.activate();
     const path = new paper.Path({
         strokeColor: style.strokeColor,
         strokeWidth: style.strokeWidth
     })
     layer.addChild(path)
+    console.log({ layer })
 }
-export const brushDraw = ({ path, point }) => {
+export const brushDraw = ({ scope, path, point }) => {
     if(!path) return;
     path.add(point);
 }
 
-export const initRectangle = ({ layer, style, point }) => {
-    const rectangle = new paper.Rectangle(point.x, point.y, 0, 0);
-    const rectPath = new paper.Path.Rectangle(rectangle)
+export const initRectangle = ({ project, layer, style, point }) => {
+    const rectangle = new project.Rectangle(point.x, point.y, 0, 0);
+    const rectPath = new project.Path.Rectangle(rectangle)
     rectPath.strokeColor = style.strokeColor;
     rectPath.strokeWidth = style.strokeWidth;
     rectPath.data.origin = point;
@@ -32,7 +35,7 @@ export const rectangleDraw = ({ layer, path, style, point}) => {
 
     path.remove();
 
-    const newRectangle = new paper.Rectangle(
+    const newRectangle = new project.Rectangle(
         origin.x, origin.y,
         point.x - origin.x,
         point.y - origin.y

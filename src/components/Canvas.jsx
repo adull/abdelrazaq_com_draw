@@ -22,6 +22,8 @@ const Canvas = ({ w = 0,
                   updateState,
                   isCustomBrush=false }) => {    
 
+    const randomId = () => Math.random().toString(36).slice(2, 8);
+
     const [layers, setLayers] = useState([]);
     const modeRef = useRef(mode);
     const layerRef = useRef(null);
@@ -29,6 +31,8 @@ const Canvas = ({ w = 0,
     const paperScopeRef = useRef(null);
     const colorRef = useRef(color);
     const thicknessRef = useRef(brushThickness);
+
+    const canvasId = useRef(`paper-${randomId()}`);
 
     useEffect(() => {
         colorRef.current = color;
@@ -39,17 +43,14 @@ const Canvas = ({ w = 0,
     useEffect(() => {
         if (!canvasRef.current) return;
 
-        const scope = new paper.PaperScope();
+        const scope = new paper.PaperScope(canvasId);
         paperScopeRef.current = scope;
 
         scope.setup(canvasRef.current);
         const { view, project } = scope;
-
-        console.log({ view, project })
-        scope.activate();
         
         view.onMouseDown = ((event) => {
-            console.log(`BRUHHH`)
+            scope.activate();
             const mode = modeRef.current;
             const layer = new paper.Group({ name: `${mode.name}__${layers.length}` });
             const point = event.point;
@@ -64,12 +65,11 @@ const Canvas = ({ w = 0,
                     initBrush({ layer, style });
                     break;
                 case modes.RECTANGLE.name:
-                    initRectangle({ layer, point, style })
+                    initRectangle({ project, layer, point, style })
                     break;
-                // case modes.CUSTOM_BRUSH.name:
-                //     console.log(`down custom`)
-                //     initCustomBrush({ layer, raster });
-                //     break;
+                case modes.CUSTOM_BRUSH.name:
+                    initCustomBrush({ layer, image });
+                    break;
                 default:
                     console.log(`mousedown -- invalid mode name`)
 
@@ -79,13 +79,10 @@ const Canvas = ({ w = 0,
         })
 
         view.onMouseDrag = ((event) => {
-            console.log(view)
-            console.log(`dd`)
             const mode = modeRef.current;
 
             const point = event.point;
 
-            // console.log({ layers })
             const layer = layers[layers.length - 1];
             const path = layer.children[0];
 
@@ -107,7 +104,7 @@ const Canvas = ({ w = 0,
         });
 
         view.onMouseUp = ((event) => {
-            console.log(`u[p]`)
+            console.log({ layers })
             updateState(`layers`, layers)
             if(isCustomBrush) {
                 const raster = view.element.toDataURL();
@@ -117,16 +114,13 @@ const Canvas = ({ w = 0,
         })
 
         return () => {
-            view.remove();
-            project.clear();
-
             view.onMouseDown = null;
             view.onMouseDrag = null;
         }
     }, [])
 
     return (
-        <canvas id="paper"
+        <canvas id={canvasId.current}
             class="canvas"
             style= {{ 
               position: `relative`, 
