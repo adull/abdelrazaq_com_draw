@@ -24,8 +24,17 @@ export const initRectangle = ({ project, layer, style, point }) => {
     layer.addChild(rectPath)
 }
 
-export const initCustomBrush = ({ layer, raster }) => {
-    console.log({ raster })
+export const initCustomBrush = ({ layer, customBrush }) => {
+    console.log({ customBrush })
+}
+
+export const customBrushDraw = ({ layer, customBrush, point }) => {
+    console.log({ customBrush })
+    const raster = new paper.Raster(customBrush)
+    raster.position.x = point.x;
+    raster.position.y = point.y;
+    console.log({ raster})
+    layer.addChild(raster)
 }
 
 export const rectangleDraw = ({ layer, path, style, point}) => {
@@ -35,7 +44,7 @@ export const rectangleDraw = ({ layer, path, style, point}) => {
 
     path.remove();
 
-    const newRectangle = new project.Rectangle(
+    const newRectangle = new paper.Rectangle(
         origin.x, origin.y,
         point.x - origin.x,
         point.y - origin.y

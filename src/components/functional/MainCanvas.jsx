@@ -4,9 +4,9 @@ import Canvas from '../Canvas';
 
 const MainCanvas = ({ state, updateState }) => {
     useEffect(() => {
-        console.log(state)
+        // console.log(state.customBrushRaster)
     }, [])
-    const setImage = () => {
+    const setImage = (raster) => {
         
         console.log(`set image`)
     }
@@ -15,6 +15,7 @@ const MainCanvas = ({ state, updateState }) => {
        <Canvas w={ 700 } 
                h={354} 
                setImage={setImage} 
+               customBrushRaster={state.customBrushRaster}
                mode={ state.mode }
                brushThickness={ state.thickness } 
                color={ state.color }

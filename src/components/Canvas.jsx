@@ -6,6 +6,7 @@ import { paper } from 'paper'
 import { findLayerFromMode, createLayerFromMode } from '../helpers/layer';
 import { brushDraw, 
          rectangleDraw, 
+         customBrushDraw,
          initBrush, 
          initRectangle, 
          initCustomBrush 
@@ -17,6 +18,7 @@ const Canvas = ({ w = 0,
                   offsetY = 0, 
                   setImage, 
                   mode,
+                  customBrushRaster,
                   brushThickness,
                   color,
                   updateState,
@@ -31,6 +33,7 @@ const Canvas = ({ w = 0,
     const paperScopeRef = useRef(null);
     const colorRef = useRef(color);
     const thicknessRef = useRef(brushThickness);
+    const customBrushRef = useRef(customBrushRaster);
 
     const canvasId = useRef(`paper-${randomId()}`);
 
@@ -38,7 +41,8 @@ const Canvas = ({ w = 0,
         colorRef.current = color;
         modeRef.current = mode
         thicknessRef.current = brushThickness; 
-    }, [color, mode, brushThickness]);
+        customBrushRef.current = customBrushRaster;
+    }, [color, mode, brushThickness, customBrushRaster]);
 
     useEffect(() => {
         if (!canvasRef.current) return;
@@ -68,7 +72,7 @@ const Canvas = ({ w = 0,
                     initRectangle({ project, layer, point, style })
                     break;
                 case modes.CUSTOM_BRUSH.name:
-                    initCustomBrush({ layer, image });
+                    initCustomBrush({ layer, customBrush: customBrushRef.current });
                     break;
                 default:
                     console.log(`mousedown -- invalid mode name`)
@@ -97,6 +101,9 @@ const Canvas = ({ w = 0,
                     }
                     rectangleDraw({ layer, path, style, point })
                     break;
+                case modes.CUSTOM_BRUSH.name:
+                    customBrushDraw({ layer, customBrush: customBrushRef.current, point });
+                    break;
                 default: 
                     console.log(`drag -- no valid mode`)
                     
@@ -104,12 +111,13 @@ const Canvas = ({ w = 0,
         });
 
         view.onMouseUp = ((event) => {
-            console.log({ layers })
             updateState(`layers`, layers)
             if(isCustomBrush) {
                 const raster = view.element.toDataURL();
                 console.log(setImage)
                 setImage(raster);
+            } else {
+                console.log({ isCustomBrush})
             }
         })
 

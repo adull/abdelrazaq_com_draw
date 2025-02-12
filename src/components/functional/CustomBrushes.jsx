@@ -15,6 +15,7 @@ const CustomBrushes = ({ state, setImage, updateState }) => {
                     color={ state.color }
                     layers={ state.customBrushes.one.layers }
                     updateState={updateState}
+                    isCustomBrush={true}
                 />
                 <Canvas w={150} 
                     h={150} 
@@ -26,6 +27,7 @@ const CustomBrushes = ({ state, setImage, updateState }) => {
                     color={ state.color }
                     layers={ state.customBrushes.one.layers }
                     updateState={updateState}
+                    isCustomBrush={true}
                 />
             </div>
     );
