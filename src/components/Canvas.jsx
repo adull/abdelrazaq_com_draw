@@ -12,6 +12,8 @@ import { brushDraw,
          initCustomBrush 
        } from '../helpers/draw';
 
+import { getSizeWithLayers } from '../helpers/layer';
+
 const Canvas = ({ w = 0, 
                   h = 0, 
                   offsetX = 0,
@@ -112,10 +114,14 @@ const Canvas = ({ w = 0,
 
         view.onMouseUp = ((event) => {
             updateState(`layers`, layers)
+            console.log(layers)
             if(isCustomBrush) {
                 const raster = view.element.toDataURL();
+                // console.log({cnhid: project.chilren})
+                console.log(layers)
+                const size = getSizeWithLayers({layers});
                 console.log(setImage)
-                setImage(raster);
+                setImage({ raster, size });
             } else {
                 console.log({ isCustomBrush})
             }

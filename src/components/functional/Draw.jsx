@@ -86,8 +86,8 @@ const Draw = () => {
         // console.log(val)
     }
 
-    const setCustomBrush = (image) => {
-        updateState(`customBrushRaster`, image)
+    const setCustomBrush = ({ raster, size }) => {
+        updateState(`customBrushRaster`, { raster, size })
     }
 
     return (

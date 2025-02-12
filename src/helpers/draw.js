@@ -29,11 +29,19 @@ export const initCustomBrush = ({ layer, customBrush }) => {
 }
 
 export const customBrushDraw = ({ layer, customBrush, point }) => {
-    console.log({ customBrush })
-    const raster = new paper.Raster(customBrush)
+    console.log({ size: customBrush.size })
+    console.log(layer)
+    const raster = new paper.Raster({
+        source: customBrush.raster,
+        // position: point,
+        // size: customBrush.size
+    })
     raster.position.x = point.x;
     raster.position.y = point.y;
-    console.log({ raster})
+    const size = new paper.Size(customBrush.size.w, customBrush.size.h)
+    // console.log({ size })
+    raster.size = size;
+    // console.log({ raster})
     layer.addChild(raster)
 }
 
