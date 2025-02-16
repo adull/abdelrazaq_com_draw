@@ -31,9 +31,12 @@ export const customBrushDraw = ({ layer, customBrush, point }) => {
     console.log({ customBrush })
     // layer.addChild(customBrush)
     // layer.addChild
+
     const newpath = paper.Path.Circle(new paper.Point(point.x, point.y), 10)
     newpath.fillColor = 'red'
     layer.addChild(newpath)
+
+    const group = new paper.Group()
     // const raster = new paper.Raster({
     //     source: customBrush.raster,
     //     // position: point,
