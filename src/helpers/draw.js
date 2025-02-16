@@ -7,48 +7,31 @@ export const initBrush = ({ scope, layer, style }) => {
     })
     layer.addChild(path)
 }
-export const brushDraw = ({ scope, path, point }) => {
+export const brushDraw = ({ path, point }) => {
     if(!path) return;
     path.add(point);
 }
 
-export const initRectangle = ({ project, layer, style, point }) => {
-    const rectangle = new project.Rectangle(point.x, point.y, 0, 0);
-    const rectPath = new project.Path.Rectangle(rectangle)
+export const initRectangle = ({ layer, style, point }) => {
+    const rectangle = new paper.Path.Rectangle(point.x, point.y, 0, 0);
+    const rectPath = new paper.Path.Rectangle(rectangle)
     rectPath.strokeColor = style.strokeColor;
     rectPath.strokeWidth = style.strokeWidth;
-rectPath.data.origin = point;
+    rectPath.data.origin = point;
     layer.addChild(rectPath)
 }
 
-export const initCustomBrush = ({ layer, customBrush }) => {
-    console.log({ customBrush })
+export const initCustomBrush = ({ layer, customBrush, point }) => {
+    layer.addChild(customBrush);
+    customBrush.position = point;
+    
 }
 
 export const customBrushDraw = ({ layer, customBrush, point }) => {
-    // console.log({ size: customBrush.size })
-    console.log(layer)
-    console.log({ customBrush })
-    // layer.addChild(customBrush)
-    // layer.addChild
-
-    const newpath = paper.Path.Circle(new paper.Point(point.x, point.y), 10)
-    newpath.fillColor = 'red'
-    layer.addChild(newpath)
-
-    const group = new paper.Group()
-    // const raster = new paper.Raster({
-    //     source: customBrush.raster,
-    //     // position: point,
-    //     // size: customBrush.size
-    // })
-    // raster.position.x = point.x;
-    // raster.position.y = point.y;
-    // const size = new paper.Size(customBrush.size.w, customBrush.size.h)
-    // console.log({ size })
-    // raster.size = size;
-    // console.log({ raster})
-    // layer.addChild(raster)
+    // console.log(point)
+    // console.log({customBrush})
+    // layer.addChild(customBrush);
+    // customBrush.position = point;
 }
 
 export const rectangleDraw = ({ layer, path, style, point}) => {

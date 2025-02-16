@@ -39,12 +39,10 @@ const Canvas = ({ w = 0,
 
     const canvasId = useRef(`paper-${randomId()}`);
 
-    useEffect(() => {
-        colorRef.current = color;
-        modeRef.current = mode
-        thicknessRef.current = brushThickness; 
-        customBrushRef.current = customBrushGroup;
-    }, [color, mode, brushThickness, customBrushGroup]);
+    colorRef.current = color;
+    modeRef.current = mode;
+    thicknessRef.current = brushThickness;
+    customBrushRef.current = customBrushGroup;
 
     useEffect(() => {
         if (!canvasRef.current) return;
@@ -71,17 +69,28 @@ const Canvas = ({ w = 0,
                     initBrush({ layer, style });
                     break;
                 case modes.RECTANGLE.name:
-                    initRectangle({ project, layer, point, style })
+                    initRectangle({ layer, point, style })
                     break;
                 case modes.CUSTOM_BRUSH.name:
-                    initCustomBrush({ layer, customBrush: customBrushRef.current });
+                    if(isCustomBrush) {
+                        initBrush({ layer, style });
+                    } else {
+                        const customBrush = new paper.Group();
+                        customBrushRef.current.forEach(stroke => {
+                            stroke._children.forEach(child => {
+                                customBrush.addChild(child)
+                            })
+                        });
+                        initCustomBrush({ layer, customBrush, point });
+                    }
                     break;
                 default:
                     console.log(`mousedown -- invalid mode name`)
 
 
             }
-            layers.push(layer)
+            const tempLayers = layers.push(layer)
+            setLayers(tempLayers)
         })
 
         view.onMouseDrag = ((event) => {
@@ -104,7 +113,20 @@ const Canvas = ({ w = 0,
                     rectangleDraw({ layer, path, style, point })
                     break;
                 case modes.CUSTOM_BRUSH.name:
-                    customBrushDraw({ layer, customBrush: customBrushRef.current, point });
+                    if(isCustomBrush) {
+                        // if we're in a custom brush just do a normal draw
+                        brushDraw({ path, point })
+
+                    } else {
+                        const customBrush = new paper.Group();
+                        customBrushRef.current.forEach(stroke => {
+                            stroke._children.forEach(child => {
+                                customBrush.addChild(child)
+                            })
+                        });
+                        customBrushDraw({ layer, customBrush, point });
+
+                    }
                     break;
                 default: 
                     console.log(`drag -- no valid mode`)

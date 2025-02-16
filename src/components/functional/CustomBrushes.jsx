@@ -3,7 +3,7 @@ import { useEffect, useState } from 'preact/hooks'
 import Canvas from '../Canvas';
 
 const CustomBrushes = ({ state, setCustomBrush, updateState }) => {
-    const [activeCustomBrush, setActiveCustomBrush] = useState(null);
+    console.log(state)
 
     return (
         <div class="flex">
