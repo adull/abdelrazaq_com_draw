@@ -18,9 +18,9 @@ const Canvas = ({ w = 0,
                   h = 0, 
                   offsetX = 0,
                   offsetY = 0, 
-                  setImage, 
+                  setCustomBrush, 
                   mode,
-                  customBrushRaster,
+                  customBrushGroup,
                   brushThickness,
                   color,
                   updateState,
@@ -35,7 +35,7 @@ const Canvas = ({ w = 0,
     const paperScopeRef = useRef(null);
     const colorRef = useRef(color);
     const thicknessRef = useRef(brushThickness);
-    const customBrushRef = useRef(customBrushRaster);
+    const customBrushRef = useRef(customBrushGroup);
 
     const canvasId = useRef(`paper-${randomId()}`);
 
@@ -43,8 +43,8 @@ const Canvas = ({ w = 0,
         colorRef.current = color;
         modeRef.current = mode
         thicknessRef.current = brushThickness; 
-        customBrushRef.current = customBrushRaster;
-    }, [color, mode, brushThickness, customBrushRaster]);
+        customBrushRef.current = customBrushGroup;
+    }, [color, mode, brushThickness, customBrushGroup]);
 
     useEffect(() => {
         if (!canvasRef.current) return;
@@ -114,14 +114,12 @@ const Canvas = ({ w = 0,
 
         view.onMouseUp = ((event) => {
             updateState(`layers`, layers)
-            console.log(layers)
+            // console.log({layers})
             if(isCustomBrush) {
-                const raster = view.element.toDataURL();
-                // console.log({cnhid: project.chilren})
-                console.log(layers)
-                const size = getSizeWithLayers({layers});
-                console.log(setImage)
-                setImage({ raster, size });
+                // console.log(view.element)
+                // const raster = view.element.toDataURL();
+                // const size = getSizeWithLayers({layers});
+                setCustomBrush(layers);
             } else {
                 console.log({ isCustomBrush})
             }

@@ -1,14 +1,11 @@
 import { paper } from 'paper'
 
 export const initBrush = ({ scope, layer, style }) => {
-    // console.log({ scope })
-    // scope.activate();
     const path = new paper.Path({
         strokeColor: style.strokeColor,
         strokeWidth: style.strokeWidth
     })
     layer.addChild(path)
-    console.log({ layer })
 }
 export const brushDraw = ({ scope, path, point }) => {
     if(!path) return;
@@ -20,7 +17,7 @@ export const initRectangle = ({ project, layer, style, point }) => {
     const rectPath = new project.Path.Rectangle(rectangle)
     rectPath.strokeColor = style.strokeColor;
     rectPath.strokeWidth = style.strokeWidth;
-    rectPath.data.origin = point;
+rectPath.data.origin = point;
     layer.addChild(rectPath)
 }
 
@@ -29,20 +26,26 @@ export const initCustomBrush = ({ layer, customBrush }) => {
 }
 
 export const customBrushDraw = ({ layer, customBrush, point }) => {
-    console.log({ size: customBrush.size })
+    // console.log({ size: customBrush.size })
     console.log(layer)
-    const raster = new paper.Raster({
-        source: customBrush.raster,
-        // position: point,
-        // size: customBrush.size
-    })
-    raster.position.x = point.x;
-    raster.position.y = point.y;
-    const size = new paper.Size(customBrush.size.w, customBrush.size.h)
+    console.log({ customBrush })
+    // layer.addChild(customBrush)
+    // layer.addChild
+    const newpath = paper.Path.Circle(new paper.Point(point.x, point.y), 10)
+    newpath.fillColor = 'red'
+    layer.addChild(newpath)
+    // const raster = new paper.Raster({
+    //     source: customBrush.raster,
+    //     // position: point,
+    //     // size: customBrush.size
+    // })
+    // raster.position.x = point.x;
+    // raster.position.y = point.y;
+    // const size = new paper.Size(customBrush.size.w, customBrush.size.h)
     // console.log({ size })
-    raster.size = size;
+    // raster.size = size;
     // console.log({ raster})
-    layer.addChild(raster)
+    // layer.addChild(raster)
 }
 
 export const rectangleDraw = ({ layer, path, style, point}) => {

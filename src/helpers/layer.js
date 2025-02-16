@@ -13,26 +13,15 @@ export const createLayerFromMode = (layers, mode) => {
 }
 
 export const getSizeWithLayers = ({ layers }) => {
-    console.log(layers )
     const segments = getAllSegments(layers)
 
-    console.log({ segments })
+    const [xArr, yArr] = [segments.map(item => item._point._x), segments.map(item => item._point._y)]
+    const [minX, maxX] = [Math.min(...xArr), Math.max(...xArr)]
+    const [minY, maxY] = [Math.min(...yArr), Math.max(...yArr)]
 
-    const xArr = segments.map(item => item._point._x);
-    const yArr = segments.map(item => item._point._y);
+    // console.log({minX, maxX, minY, maxY })
 
-    const minX = Math.min(...xArr);
-    const maxX = Math.max(...xArr);
-
-    const minY = Math.min(...yArr);
-    const maxY = Math.max(...yArr);
-
-    console.log({minX, maxX, minY, maxY })
-
-    console.log({ xArr, yArr})
-    // console.log(view)
-    // const bruh = view.getContext();
-    // console.log({ bruh })
+    // console.log({ xArr, yArr})
     console.log( {
         w: maxY - minY,
         h: maxX - minX

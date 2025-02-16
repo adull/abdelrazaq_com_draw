@@ -20,7 +20,7 @@ const Draw = () => {
         layers: [],
         lastDims: { width: 0, height: 0 },
         lastRot: 0,
-        customBrushRaster: ``,
+        customBrushGroup: [],
         customBrushes: {
             one: {
                 layers: [],
@@ -86,8 +86,9 @@ const Draw = () => {
         // console.log(val)
     }
 
-    const setCustomBrush = ({ raster, size }) => {
-        updateState(`customBrushRaster`, { raster, size })
+    const setCustomBrush = (group) => {
+        // console.log({ layers })
+        updateState(`customBrushGroup`, group)
     }
 
     return (
@@ -105,7 +106,7 @@ const Draw = () => {
                     </div>
                 </div>
                 <div class="flex flex-wrap">
-                    <CustomBrushes state={state} setImage={setCustomBrush} updateState={updateState}/>
+                    <CustomBrushes state={state} setCustomBrush={setCustomBrush} updateState={updateState}/>
                     <CustomBrushToo />
                 </div>
             </div>

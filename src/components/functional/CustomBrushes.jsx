@@ -2,14 +2,14 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks'
 import Canvas from '../Canvas';
 
-const CustomBrushes = ({ state, setImage, updateState }) => {
+const CustomBrushes = ({ state, setCustomBrush, updateState }) => {
     const [activeCustomBrush, setActiveCustomBrush] = useState(null);
 
     return (
         <div class="flex">
             <Canvas w={150} 
                     h={150} 
-                    setImage={setImage} 
+                    setCustomBrush={setCustomBrush} 
                     mode={ state.mode }
                     brushThickness={ state.thickness } 
                     color={ state.color }
@@ -21,7 +21,7 @@ const CustomBrushes = ({ state, setImage, updateState }) => {
                     h={150} 
                     offsetX={10}
                     offsetY={8}
-                    setImage={setImage} 
+                    setCustomBrush={setCustomBrush} 
                     mode={ state.mode }
                     brushThickness={ state.thickness } 
                     color={ state.color }
